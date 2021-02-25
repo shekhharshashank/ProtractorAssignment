@@ -1,9 +1,11 @@
 const { element, browser } = require("protractor");
 const { verify } = require("crypto");
 const { clear } = require("console");
+const pageObjects = require("../pageobject/LoginPage.js");
 
 describe('Assignments ', function()  {
-    var baseUrl='index.html';
+    var baseUrl='file:///S:/Assgnmntpaisa/index.html';
+    var pageObj= new pageObjects();
 
     //TestCase 1 
     it('Test Case 1',function() {
@@ -14,20 +16,17 @@ describe('Assignments ', function()  {
 
     //Navigating to the baseUrl to HomePage    
     browser.get(baseUrl);
-    var inputEmail=element(by.id('inputEmail'));
-    //Verifying InputEmail box
-    expect(inputEmail.isDisplayed).toBeTruthy();
-    var inputPassword=element(by.id('inputPassword'));
+    expect(pageObj.inputEmail.isDisplayed).toBeTruthy();
+   
     //Verifying Password Box
-    expect(inputPassword.isDisplayed).toBeTruthy();
+    expect(pageObj.inputPassword.isDisplayed).toBeTruthy();
     var signinBtn= element(by.buttonText('Sign in'));
     //Verifying Signin Button which should be enabled
-    expect(signinBtn.isDisplayed).toBeTruthy();
+    expect(pageObj.signinBtn.isDisplayed).toBeTruthy();
    
     //Passing Email and Password
-    inputEmail.sendKeys(getProperty('email'));
-    //inputEmail.sendKeys('abc@gmail.com');
-    inputPassword.sendKeys('passwrd');
+    pageObj.inputEmail.sendKeys(getProperty('email'));
+    pageObj.inputPassword.sendKeys('passwrd');
     });
 
 
@@ -66,14 +65,10 @@ describe('Assignments ', function()  {
     it('Test Case 4',function(){
         //Navigating to the baseUrl to HomePage  
         browser.get(baseUrl);
-        //Locating Button enabled and disabled
-        var button1=element(by.className('btn btn-lg btn-primary'));
-        var button2=element(by.className('btn btn-lg btn-secondary'));
-
+             
         //Verifying enabled and disabled buttons
-        expect(button1.isEnabled).toBeTruthy();
-        expect(button2.getAttribute('disabled')).toBeTruthy();
-
+        expect(pageObj.button1.isEnabled).toBeTruthy();
+        expect(pageObj.button2.getAttribute('disabled')).toBeTruthy();
 
     });
 
@@ -89,7 +84,7 @@ describe('Assignments ', function()  {
         expect(button.isEnabled).toBeTruthy();
         button.click();
         var buttonValues=element(by.id('test5-alert'));
-        expect(buttonValues.getText()).toContain('You clicked a button!');
+        expect(pageObj.buttonValues.getText()).toContain('You clicked a button!');
         expect(button.getAttribute('disabled')).toBeTruthy();
     });
 
